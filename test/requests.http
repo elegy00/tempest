@@ -1,0 +1,12 @@
+POST http://localhost:5000/Environment
+content-type: application/json
+
+{
+    "temperature": 12.3,
+    "humidity": 59.3,
+    "pressure": 4232,
+    "temperature": 12.3,
+    "battery": 100,
+    "voltage": 3020,
+    "linkquality": 57
+}
