@@ -1,0 +1,15 @@
+FROM mcr.microsoft.com/dotnet/core/sdk:3.0 AS build
+RUN mkdir -p /root/src/app  
+WORKDIR /root/src/app  
+
+COPY . .
+
+WORKDIR /root/src/app/server
+
+RUN dotnet publish -c Release -o published -r linux-x64
+
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.0 AS runtime
+WORKDIR /root/  
+COPY --from=build /root/src/app/server/published .
+
+CMD ["dotnet", "./server.dll"]

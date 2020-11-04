@@ -1,0 +1,14 @@
+FROM mcr.microsoft.com/dotnet/core/sdk:3.0 AS build
+RUN mkdir -p /root/src/app
+
+COPY . .
+
+WORKDIR /root/src/app/server
+
+RUN dotnet publish -c Release -o published -r linux-arm
+
+FROM mcr.microsoft.com/dotnet/core/runtime:3.0.2-disco-arm32v7 AS runtime
+WORKDIR /root/  
+COPY --from=build /root/src/app/server/published .
+
+CMD ["dotnet", "./server.dll"]
