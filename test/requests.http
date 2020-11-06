@@ -8,23 +8,21 @@ content-type: application/json
     "temperature": 12.3,
     "battery": 100,
     "voltage": 3020,
-    "linkquality": 57
+    "linkquality": 57,
+    "topic": "zigbee2mqtt/0xasdf"
 }
 ###
 
-POST http://localhost:5000/Environment
+POST http://192.168.1.30:5050/Environment
 content-type: application/json
 
 {
-    "payload": {
-        "temperature": 12.3,
-        "humidity": 59.3,
-        "pressure": 4232,
-        "temperature": 12.3,
-        "battery": 100,
-        "voltage": 3020,
-        "linkquality": 57
-    }
+     "temperature": 12.3,
+    "humidity": 59.3,
+    "pressure": 4232,
+    "temperature": 12.3,
+    "battery": 100,
+    "voltage": 3020,
+    "linkquality": 57,
+    "topic": "zigbee2mqtt/0xasdf"
 }
-
-http://192.168.1.110:5000/WeatherForecast

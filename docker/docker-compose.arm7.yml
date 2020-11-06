@@ -1,56 +1,18 @@
 version: '3'
 services:
-  web:
-    image: elegy/mybrary.web.arm7:latest
-    ports:
-      - '4200:80'
-    depends_on:
-      - 'api'
-    restart: 'always'
   api:
-    image: elegy/mybrary.api.arm7:latest
+    image: elegy/tempest.api.arm7:latest
     ports:
-      - '7000:5000'
-    volumes:
-      - /mnt/pi-data/shared/mybrary/:/data/library
+      - '5050:5000'
     environment:
-      - ConnectionString=Server=db;Database=mybrary;Password=;User Id=postgres
-      - MusicStoreDirectory=/data/library/stored
-    depends_on:
-      - 'db'
-    restart: 'always'
-  importer:
-    image: elegy/mybrary.importer.arm7:latest
-    volumes:
-      - /mnt/pi-data/shared/mybrary/:/data/library
-    environment:
-      - WatchDirectory=/data/library/watched
-      - MusicStoreDirectory=/data/library/stored
-      - ConnectionString=Server=db;Database=mybrary;Password=;User Id=postgres
-    depends_on:
-      - 'db'
-    restart: 'always'
-  services:
-    image: elegy/mybrary.services.arm7:latest
-    volumes:
-      - /mnt/pi-data/shared/mybrary/:/data/library
-    environment:
-      - MusicStoreDirectory=/data/library/stored
-      - ConnectionString=Server=db;Database=mybrary;Password=;User Id=postgres
+      - ConnectionString=Server=db;Database=tempest;Password=;User Id=postgres;Port=5466
     depends_on:
       - 'db'
     restart: 'always'
   db:
     image: postgres:10.1
     ports:
-      - '5454:5432'
+      - '5466:5432'
     environment:
-      POSTGRES_DB: mybrary
-    volumes:
-      - ./pg-data:/var/lib/postgresql
-    restart: 'always'
-  spdns:
-    image: netzfisch/rpi-dyndns
-    env_file:
-      - spdns.env
+      POSTGRES_DB: tempest
     restart: 'always'

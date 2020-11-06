@@ -1,5 +1,6 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:3.0 AS build
 RUN mkdir -p /root/src/app
+WORKDIR /root/src/app  
 
 COPY . .
 
