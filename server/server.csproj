@@ -2,6 +2,9 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
+  <PropertyGroup>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
   <ItemGroup>&#xD;
   </ItemGroup>
   <ItemGroup>
