@@ -16,7 +16,11 @@ namespace server.Data {
         public int Battery { get; set; }
         public int Voltage { get; set; }
         public int Linkquality { get; set; }
+  
 
+        public string Topic {get;set;}
+
+        public DateTime Timestamp {get;set;}
         public DateTime CreationDate { get;set;}
     }
 }

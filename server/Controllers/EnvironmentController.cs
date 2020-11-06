@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using server.Controllers.Model;
+using server.Data;
 
 namespace server.Controllers
 {
@@ -22,12 +23,32 @@ namespace server.Controllers
         }
 
         [HttpPost]
-        public string AddMeasure(MeasurePoint data)
+        public EnvironmentMeasurement AddMeasure(MeasurePoint data)
         {
-            System.Console.Out.WriteLine($"Le temperatuüre:\n{data.Temperature}");
+            if(data.Topic.StartsWith("zigbee2mqtt/0x")){
+                var dbEntry = ConvertToDb(data);
+                dbContext.Measurements.Add(dbEntry);
+                dbContext.SaveChanges();
+                return dbEntry;
+            }
 
-            var res = dbContext.Measurements.ToList();
-            return "süccess " + res.Count;
+            return null;
+        }
+
+        private EnvironmentMeasurement ConvertToDb(MeasurePoint data) {
+            return new EnvironmentMeasurement() {
+                Battery = data.Battery,
+                CreationDate = data.Timestamp,
+                Humidity = data.Humidity,
+                Linkquality = data.Linkquality,
+                Pressure = data.Pressure,
+                Temperature = data.Temperature,
+                Timestamp = data.Timestamp,
+                Topic = data.Topic,
+                Voltage = data.Voltage
+
+
+            };
         }
     }
 }
