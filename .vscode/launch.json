@@ -19,7 +19,7 @@
       },
       "env": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "ConnectionString": "Server=localhost;Database=mybrary;Password=;User Id=postgres;Port=5454"
+        "ConnectionString": "Server=localhost;Database=tempest;Password=;User Id=postgres;Port=5466"
       },
       "sourceFileMap": {
         "/Views": "${workspaceFolder}/Views"

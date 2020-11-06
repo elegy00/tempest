@@ -13,17 +13,21 @@ namespace server.Controllers
     public class EnvironmentController : ControllerBase
     {
         private readonly ILogger<EnvironmentController> _logger;
+        private readonly EnvironmentContext dbContext;
 
-        public EnvironmentController(ILogger<EnvironmentController> logger)
+        public EnvironmentController(ILogger<EnvironmentController> logger, EnvironmentContext context)
         {
             _logger = logger;
+            dbContext = context;
         }
 
         [HttpPost]
         public string AddMeasure(MeasurePoint data)
         {
             System.Console.Out.WriteLine($"Le temperatuüre:\n{data.Temperature}");
-            return "süccess";
+
+            var res = dbContext.Measurements.ToList();
+            return "süccess " + res.Count;
         }
     }
 }
