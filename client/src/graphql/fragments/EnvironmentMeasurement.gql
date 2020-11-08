@@ -1,0 +1,11 @@
+fragment EnvironmentMeasurementFragment on EnvironmentMeasurement {
+  id
+  topic
+  battery
+  linkquality
+  voltage
+  pressure
+  temperature
+  humidity
+  timestamp
+}

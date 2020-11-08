@@ -1,0 +1,7 @@
+#import '../../../graphql/fragments/EnvironmentMeasurement.gql'
+
+query FetchMeasurements($filter: EnvironmentMeasurementFilter) {
+  measurements(where: $filter) {
+    ...EnvironmentMeasurementFragment
+  }
+}
