@@ -11,6 +11,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using HotChocolate;
+
+using HotChocolate.AspNetCore;
+using HotChocolate.AspNetCore.Playground;
+using server.GQL;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 namespace server
 {
@@ -28,24 +34,66 @@ namespace server
         {
             services.AddControllers();
             services.AddSingleton<EnvironmentContext>();
+            var schema = SchemaBuilder.New()
+              .AddQueryType<Query>()
+              .Create();
+            
+
+
+            services.AddGraphQL(schema);
+            //  services
+            //     .AddGraphQLServer()
+            //     .AddQueryType<Query>();
+            
+            PreventAsyncError(services);
+        }
+
+                private void PreventAsyncError(IServiceCollection services)
+        {
+            // kestrel
+            services.Configure<KestrelServerOptions>(options =>
+            {
+                options.AllowSynchronousIO = true;
+            });
+
+            // IIS
+            services.Configure<IISServerOptions>(options =>
+            {
+                options.AllowSynchronousIO = true;
+            });
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, EnvironmentContext context)
         {
+            
+            context.Database.Migrate();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseRouting();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseGraphQL("/graphql");
 
-            context.Database.Migrate();
+            app.UsePlayground();
+        // app .UseRouting();
+        // app.UseEndpoints(endpoints =>
+        //     {
+        //         // endpoints.MapControllers();
+        //         endpoints.MapGraphQL("/graphql");
+                
+        //     });
+            // app.UseGraphQL("/graphql");
+
+            // app.UsePlayground();
+
+            //app.UseMvc();
+
+    
+
         }
     }
 }

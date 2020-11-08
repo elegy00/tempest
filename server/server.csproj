@@ -5,12 +5,15 @@
   <PropertyGroup>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-  <ItemGroup>&#xD;
+  <ItemGroup>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0-rc.2.20475.6"/>
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.0-rc2"/>
     <PackageReference Include="EFCore.NamingConventions" Version="5.0.0-rc1"/>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.0-rc.2.20475.6"/>
+    <PackageReference Include="HotChocolate" Version="10.5.3"/>
+    <PackageReference Include="HotChocolate.AspNetCore" Version="10.5.3"/>
+    <PackageReference Include="HotChocolate.AspNetCore.Playground" Version="10.5.3"/>
   </ItemGroup>
 </Project>
