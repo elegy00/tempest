@@ -81,20 +81,12 @@ namespace server
             app.UseGraphQL("/graphql");
 
             app.UsePlayground();
-        // app .UseRouting();
-        // app.UseEndpoints(endpoints =>
-        //     {
-        //         // endpoints.MapControllers();
-        //         endpoints.MapGraphQL("/graphql");
-                
-        //     });
-            // app.UseGraphQL("/graphql");
-
-            // app.UsePlayground();
-
-            //app.UseMvc();
-
-    
+            app.UseRouting();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+                                
+            });
 
         }
     }
