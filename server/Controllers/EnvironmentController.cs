@@ -38,7 +38,6 @@ namespace server.Controllers
         private EnvironmentMeasurement ConvertToDb(MeasurePoint data) {
             return new EnvironmentMeasurement() {
                 Battery = data.Battery,
-                CreationDate = data.Timestamp,
                 Humidity = data.Humidity,
                 Linkquality = data.Linkquality,
                 Pressure = data.Pressure,

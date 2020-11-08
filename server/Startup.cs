@@ -17,6 +17,7 @@ using HotChocolate.AspNetCore;
 using HotChocolate.AspNetCore.Playground;
 using server.GQL;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
+using HotChocolate.Types;
 
 namespace server
 {
@@ -36,6 +37,7 @@ namespace server
             services.AddSingleton<EnvironmentContext>();
             var schema = SchemaBuilder.New()
               .AddQueryType<Query>()
+              .BindClrType<DateTime, DateTimeType>()
               .Create();
             
 

@@ -21,6 +21,5 @@ namespace server.Data {
         public string Topic {get;set;}
 
         public DateTime Timestamp {get;set;}
-        public DateTime CreationDate { get;set;}
     }
 }
