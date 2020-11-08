@@ -1,5 +1,12 @@
 version: '3'
 services:
+  web:
+    image: elegy/tempest.web.arm7:latest
+    ports:
+      - '5200:80'
+    depends_on:
+      - 'api'
+    restart: 'always'
   api:
     image: elegy/tempest.api.arm7:latest
     ports:

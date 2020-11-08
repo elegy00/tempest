@@ -1,32 +1,24 @@
 import { useQuery } from '@apollo/client';
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
+import { CartesianGrid, Line, LineChart, Tooltip, XAxis } from 'recharts';
 import {
   FetchMeasurements,
   FetchMeasurementsVariables,
 } from '../../graphql/types';
 import { FETCH_MEASUREMENTS } from './query';
 
-import { CartesianGrid, Line, LineChart, Tooltip, XAxis } from 'recharts';
-
 const Dashboard: React.FC = () => {
-  //   const initialDate = useMemo(() => {
-  //     const timeRange = new Date();
-  //     timeRange.setDate(timeRange.getDate() - 1);
-  //     return timeRange;
-  //   }, []);
-
   const timeRange = new Date();
   timeRange.setDate(timeRange.getDate() - 1);
-  const [startDate, setStartDate] = useState(timeRange);
+  const [startDate] = useState(timeRange);
 
-  const { data, loading } = useQuery<
-    FetchMeasurements,
-    FetchMeasurementsVariables
-  >(FETCH_MEASUREMENTS, {
-    variables: { filter: { timestamp_gte: startDate } },
-    pollInterval: 5000,
-  });
-  console.log(data);
+  const { data } = useQuery<FetchMeasurements, FetchMeasurementsVariables>(
+    FETCH_MEASUREMENTS,
+    {
+      variables: { filter: { timestamp_gte: startDate } },
+      pollInterval: 5000,
+    }
+  );
 
   return (
     <div>
