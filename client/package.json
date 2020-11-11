@@ -33,7 +33,7 @@
       "react-app/jest"
     ]
   },
-  "proxy": "http://localhost:5000",
+  "proxy": "http://black-rack:5050",
   "browserslist": {
     "production": [
       ">0.2%",
