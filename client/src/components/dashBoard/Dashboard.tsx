@@ -21,7 +21,7 @@ const Dashboard: React.FC = () => {
   const { data } = useQuery<FetchMeasurements, FetchMeasurementsVariables>(
     FETCH_MEASUREMENTS,
     {
-      variables: { filter: { timestamp_gte: startDate } },
+      variables: { filter: { timestamp_gte: startDate.toISOString() } },
       pollInterval: 5000,
     }
   );
