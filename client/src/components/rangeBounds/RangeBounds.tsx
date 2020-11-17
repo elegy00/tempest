@@ -11,7 +11,7 @@ interface IProps {
 const BoundsWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-gap: 8px;
+  grid-gap: 12px;
 
   padding: 24px;
 `;
@@ -24,12 +24,14 @@ const RangeBounds: React.FC<IProps> = (props) => {
     return <div>no data</div>;
   }
   const latestMeasurement = [...measurements].sort(
-    (a, b) => a.timestamp - b.timestamp
+    (a, b) => Date.parse(b.timestamp) - Date.parse(a.timestamp)
   )[0];
+
+  console.log(latestMeasurement);
 
   return (
     <BoundsWrapper>
-      <div>Label</div>
+      <div></div>
       <div>Lowest</div>
       <div>Current</div>
       <div>Highest</div>
@@ -45,12 +47,12 @@ const RangeBounds: React.FC<IProps> = (props) => {
         highest={bounds.humidity.highest}
         current={latestMeasurement.humidity}
       />
-      <RangeBoundsEntry
+      {/* <RangeBoundsEntry
         label="pressure"
         lowest={bounds.pressure.lowest}
         highest={bounds.pressure.highest}
         current={latestMeasurement.pressure}
-      />
+      /> */}
     </BoundsWrapper>
   );
 };
