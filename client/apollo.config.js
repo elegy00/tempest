@@ -3,7 +3,7 @@ module.exports = {
     name: 'Tempest',
     service: {
       name: 'Tempest.API',
-      url: 'http://localhost:5000/graphql',
+      url: 'http://black-rack:5050/graphql',
     },
   },
 };
