@@ -1,8 +1,8 @@
-import React from 'react';
-import { EnvironmentMeasurementFragment } from '../../graphql/types';
-import { useMeasurementBounds } from '../../hooks/useMeasurementBounds';
-import { RangeBoundsEntry } from './RangeBoundsEntry';
-import styled from 'styled-components';
+import React from "react";
+import { EnvironmentMeasurementFragment } from "../../graphql/types";
+import { useMeasurementBounds } from "../../hooks/useMeasurementBounds";
+import { RangeBoundsEntry } from "./RangeBoundsEntry";
+import styled from "styled-components";
 
 interface IProps {
   measurements: readonly EnvironmentMeasurementFragment[];
@@ -47,12 +47,6 @@ const RangeBounds: React.FC<IProps> = (props) => {
         highest={bounds.humidity.highest}
         current={latestMeasurement.humidity}
       />
-      {/* <RangeBoundsEntry
-        label="pressure"
-        lowest={bounds.pressure.lowest}
-        highest={bounds.pressure.highest}
-        current={latestMeasurement.pressure}
-      /> */}
     </BoundsWrapper>
   );
 };

@@ -1,18 +1,24 @@
-import { useQuery } from '@apollo/client';
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import { useQuery } from "@apollo/client";
+import React, { useState } from "react";
+import styled from "styled-components";
 import {
   FetchMeasurements,
   FetchMeasurementsVariables,
-} from '../../graphql/types';
-import { MeasurementChart } from '../measurementChart/MeasurementChart';
-import { RangeBounds } from '../rangeBounds/RangeBounds';
-import { FETCH_MEASUREMENTS } from './query';
+  FetchMeasurements_measurements,
+} from "../../graphql/types";
+import { MeasurementChart } from "../measurementChart/MeasurementChart";
+import { RangeBounds } from "../rangeBounds/RangeBounds";
+import { FETCH_MEASUREMENTS } from "./query";
 
 const Datapoint = styled.div`
   display: flex;
   flex-flow: row wrap;
 `;
+
+interface SensorData {
+  name: string;
+  measurements: FetchMeasurements_measurements[];
+}
 const Dashboard: React.FC = () => {
   const timeRange = new Date();
   timeRange.setDate(timeRange.getDate() - 1);
@@ -26,11 +32,27 @@ const Dashboard: React.FC = () => {
     }
   );
 
+  const groupedMeasurements: SensorData[] =
+    data?.measurements.reduce<SensorData[]>((sensorData, next) => {
+      const match = sensorData.find((sd) => sd.name === next.topic);
+      if (match) {
+        match.measurements.push(next);
+        return sensorData;
+      }
+      sensorData.push({ name: next.topic, measurements: [next] });
+      return sensorData;
+    }, []) ?? [];
+
   return (
-    <Datapoint>
-      <RangeBounds measurements={data?.measurements ?? []} />
-      {data && <MeasurementChart measurements={data?.measurements ?? []} />}
-    </Datapoint>
+    <>
+      {groupedMeasurements.map((gm) => (
+        <Datapoint key={gm.name}>
+          <h3>{gm.name}</h3>
+          <RangeBounds measurements={gm.measurements} />
+          {data && <MeasurementChart measurements={gm.measurements} />}
+        </Datapoint>
+      ))}
+    </>
   );
 };
 
