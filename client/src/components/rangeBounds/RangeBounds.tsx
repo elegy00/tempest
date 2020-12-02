@@ -1,8 +1,8 @@
-import React from "react";
-import { EnvironmentMeasurementFragment } from "../../graphql/types";
-import { useMeasurementBounds } from "../../hooks/useMeasurementBounds";
-import { RangeBoundsEntry } from "./RangeBoundsEntry";
-import styled from "styled-components";
+import React from 'react';
+import { EnvironmentMeasurementFragment } from '../../graphql/types';
+import { useMeasurementBounds } from '../../hooks/useMeasurementBounds';
+import { RangeBoundsEntry } from './RangeBoundsEntry';
+import styled from 'styled-components';
 
 interface IProps {
   measurements: readonly EnvironmentMeasurementFragment[];
@@ -26,8 +26,6 @@ const RangeBounds: React.FC<IProps> = (props) => {
   const latestMeasurement = [...measurements].sort(
     (a, b) => Date.parse(b.timestamp) - Date.parse(a.timestamp)
   )[0];
-
-  console.log(latestMeasurement);
 
   return (
     <BoundsWrapper>
